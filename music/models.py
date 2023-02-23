@@ -63,6 +63,7 @@ class Album(models.Model):
 
 class Playlist(models.Model):
     title = models.CharField(max_length=200)
+    created_by = models.JSONField(blank=True, default=dict, verbose_name='Created By')
     songs = models.ManyToManyField('music.Song', blank=True, related_name='on_playlists')
     artwork = models.ImageField(verbose_name='Playlist Artwork')
     duration = models.DurationField(default=0)
@@ -89,7 +90,7 @@ class Song(models.Model):
     title = models.CharField(max_length=200)
     artists = models.ManyToManyField('music.Artist', blank=True, related_name='songs', verbose_name='Artist(s)')
     features = models.ManyToManyField('music.Artist', blank=True, related_name='featured_on', verbose_name='Feature(s)')
-    album = models.ForeignKey('music.Album', blank=True, on_delete=models.SET_DEFAULT, related_name='songs')
+    album = models.ForeignKey('music.Album', blank=True, default=False, on_delete=models.SET_DEFAULT, related_name='songs')
     duration = models.DurationField(default=0)
     released = models.DateField(blank=True)
 
