@@ -13,7 +13,7 @@ def get_property_set(query_set: models.QuerySet, relation: str):
     :returns: A ``set`` of values from a given object's property in a query set.
     :rtype: set
     """
-    if not isinstance(query_set, models.QuerySet) or not hasattr(query_set.first(), relation)
+    if not isinstance(query_set, models.QuerySet) or not hasattr(query_set.first(), relation):
         return None
 
     items = set()
